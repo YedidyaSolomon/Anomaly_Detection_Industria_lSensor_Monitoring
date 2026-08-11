@@ -1,8 +1,3 @@
-"""
-data_loader.py
---------------
-Loads machine_sensors.csv and returns a clean DataFrame with a proper DatetimeIndex.
-"""
 
 import pandas as pd
 from pathlib import Path

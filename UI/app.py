@@ -1,11 +1,4 @@
-"""
-UI/app.py
----------
-Streamlit dashboard for the Industrial Sensor Anomaly Detection project.
 
-Run from project root:
-    streamlit run UI/app.py
-"""
 
 import sys
 import json

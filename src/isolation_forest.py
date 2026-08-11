@@ -1,11 +1,3 @@
-"""
-isolation_forest.py
--------------------
-Multivariate anomaly detection using Isolation Forest.
-
-IsolationForest is distribution-free and handles high-dimensional data well.
-It is a strong general-purpose baseline for point anomalies.
-"""
 
 import numpy as np
 import pandas as pd
@@ -22,23 +14,7 @@ def isolation_forest_detection(
     random_state: int = 42,
     use_power_ratio: bool = True,
 ) -> pd.DataFrame:
-    """
-    Run Isolation Forest on the sensor features.
-
-    Parameters
-    ----------
-    df            : raw sensor DataFrame (DatetimeIndex)
-    contamination : expected fraction of anomalies (used for threshold)
-    n_estimators  : number of trees in the forest
-    use_power_ratio : if True, appends the power/rpm ratio as an extra feature
-                      to help surface contextual power anomalies
-
-    Returns
-    -------
-    result_df : DataFrame with columns
-        - if_anomaly  : bool  (True = anomaly)
-        - if_score    : float (raw anomaly score, lower = more anomalous)
-    """
+   
     work_df = df.copy()
     if use_power_ratio:
         work_df = add_power_rpm_ratio(work_df)

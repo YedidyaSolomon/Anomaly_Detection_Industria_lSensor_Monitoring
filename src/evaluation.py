@@ -1,9 +1,4 @@
-"""
-evaluation.py
--------------
-Summarises detection results, saves metrics to JSON, and generates
-all result plots saved to results/plots/ and results/metrics/.
-"""
+
 
 import json
 import numpy as np

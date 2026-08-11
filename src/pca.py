@@ -1,12 +1,4 @@
-"""
-pca.py
-------
-PCA reconstruction-error anomaly detection.
 
-Projects data to a lower-dimensional space and flags points that cannot
-be reconstructed well — these are points that lie far from the principal
-subspace of normal behaviour.
-"""
 
 import numpy as np
 import pandas as pd
@@ -23,23 +15,7 @@ def pca_detection(
     contamination: float = 0.03,
     use_power_ratio: bool = True,
 ) -> pd.DataFrame:
-    """
-    PCA reconstruction-error detector.
-
-    Parameters
-    ----------
-    df            : raw sensor DataFrame (DatetimeIndex)
-    n_components  : number of principal components to keep
-    contamination : fraction used to set the anomaly threshold (quantile)
-    use_power_ratio : append power/rpm ratio feature
-
-    Returns
-    -------
-    result_df : DataFrame with columns
-        - pca_anomaly       : bool
-        - pca_recon_error   : float (MSE of reconstruction per sample)
-        - pca_threshold     : float (scalar threshold applied)
-    """
+    
     work_df = df.copy()
     if use_power_ratio:
         work_df = add_power_rpm_ratio(work_df)

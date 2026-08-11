@@ -1,20 +1,3 @@
-"""
-ensamble.py
------------
-Combines all individual detector outputs into a unified anomaly result.
-
-Strategy
---------
-1. Collect every boolean anomaly flag from all detectors.
-2. Count how many detectors agree on each timestamp (anomaly_votes).
-3. Apply a vote threshold to produce the final label.
-4. Also tag each anomaly with its *type* based on which detectors fired:
-   - point_vib       : vibration spike (impact event)
-   - point_pressure  : sudden pressure drop (valve fault)
-   - contextual_power: power/load mismatch
-   - collective_drift : sustained temp+vib rise (bearing wear)
-   - sensor_fault    : flatlined rotation_rpm
-"""
 
 import pandas as pd
 import numpy as np
@@ -68,23 +51,6 @@ def combine_detectors(
     vote_threshold: int = 2,
     contamination: float = 0.03,
 ) -> pd.DataFrame:
-    """
-    Run all detectors and merge results.
-
-    Parameters
-    ----------
-    df              : raw sensor DataFrame (DatetimeIndex)
-    vote_threshold  : minimum number of detector agreements to label anomaly
-    contamination   : passed to ML detectors
-
-    Returns
-    -------
-    full DataFrame with all flag columns plus:
-        - anomaly_votes   : int  (how many detectors flagged this point)
-        - final_anomaly   : bool (votes >= vote_threshold)
-        - anomaly_type    : str  (best-guess type label)
-    Also includes all original sensor columns for easy downstream use.
-    """
     # ── Run each detector ──
     uni_df   = run_all_univariate(df)
     if_df    = isolation_forest_detection(df, contamination=contamination)

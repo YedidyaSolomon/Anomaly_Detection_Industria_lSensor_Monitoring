@@ -1,22 +1,3 @@
-"""
-collective.py
--------------
-Sequential / collective anomaly detection.
-
-Standard point-detectors miss sustained drift because no single point
-looks extreme. This module uses:
-
-1. rolling_window_detector  — computes rolling mean & std features then
-   runs Isolation Forest on them. A slow drift becomes a visible outlier
-   in rolling-feature space.
-
-2. cusum_flag               — CUSUM change-point on a combined signal
-   (temp + vibration). Catches the bearing-wear regime shift.
-
-3. bearing_wear_flag        — domain heuristic: both temperature AND
-   vibration rolling means rising together for >= min_duration minutes.
-"""
-
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import IsolationForest
@@ -31,20 +12,7 @@ def rolling_window_detector(
     contamination: float = 0.03,
     random_state: int = 42,
 ) -> pd.DataFrame:
-    """
-    Build rolling mean + std features for temperature and vibration, then
-    run Isolation Forest on that feature space.
-
-    Parameters
-    ----------
-    window : rolling window size in minutes (rows)
-
-    Returns
-    -------
-    DataFrame with columns:
-        - roll_anomaly : bool (aligned to original df.index, NaN-head set False)
-        - roll_score   : float anomaly score
-    """
+    
     roll_features = pd.DataFrame(index=df.index)
     for col in ["temperature_c", "vibration_mm_s", "pressure_kpa"]:
         roll_features[f"{col}_rmean"] = (

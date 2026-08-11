@@ -1,12 +1,4 @@
-"""
-lof.py
-------
-Multivariate anomaly detection using Local Outlier Factor (LOF).
 
-LOF compares the local density of a point to its neighbours.
-It is especially effective for contextual anomalies where "normal"
-depends on the local operating regime.
-"""
 
 import numpy as np
 import pandas as pd
@@ -23,22 +15,7 @@ def lof_detection(
     n_neighbors: int = 30,
     use_power_ratio: bool = True,
 ) -> pd.DataFrame:
-    """
-    Run LOF on the sensor features.
-
-    Parameters
-    ----------
-    df            : raw sensor DataFrame (DatetimeIndex)
-    contamination : expected fraction of anomalies
-    n_neighbors   : number of neighbours used in density estimation
-    use_power_ratio : append power/rpm ratio feature
-
-    Returns
-    -------
-    result_df : DataFrame with columns
-        - lof_anomaly : bool
-        - lof_score   : float (negative_outlier_factor, higher = more anomalous)
-    """
+   
     work_df = df.copy()
     if use_power_ratio:
         work_df = add_power_rpm_ratio(work_df)
