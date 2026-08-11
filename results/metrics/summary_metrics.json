@@ -1,0 +1,24 @@
+{
+  "total_samples": 8000,
+  "total_anomalies": 1134,
+  "anomaly_pct": 14.18,
+  "by_type": {
+    "collective_drift": 1129,
+    "point_vib": 337,
+    "point_pressure": 322,
+    "sensor_fault": 49,
+    "contextual_power": 1
+  },
+  "by_detector": {
+    "vib_zscore": 186,
+    "vib_iqr": 337,
+    "pressure_drop": 332,
+    "rpm_flatline": 49,
+    "temp_zscore": 38,
+    "if_anomaly": 240,
+    "lof_anomaly": 240,
+    "pca_anomaly": 240,
+    "roll_anomaly": 238,
+    "collective_anomaly": 7686
+  }
+}
